@@ -369,6 +369,48 @@
             body { background: #ffffff; padding: 0; }
             .cv-container { box-shadow: none; border-radius: 0; }
         }
+
+        /* media */
+        /* --- Media Query للأجهزة الصغيرة (الموبايل) --- */
+@media screen and (max-width: 768px) {
+    body {
+        padding: 10px 5px !important;
+    }
+    
+    .cv-container {
+        border-radius: 0 !important;
+        box-shadow: none !important;
+    }
+
+    /* تحويل الـ Grid لعمود واحد عشان مفيش حاجة تختفي */
+    .cv-body {
+        grid-template-columns: 1fr !important;
+        padding: 15px 20px !important;
+        gap: 20px !important;
+    }
+
+    /* تصغير الهيدر وتنسيقه للموبايل */
+    .cv-header {
+        flex-direction: column-reverse !important;
+        text-align: center !important;
+        padding: 25px 20px 15px 20px !important;
+        gap: 15px;
+    }
+
+    .header-left {
+        align-items: center !important;
+        width: 100%;
+    }
+
+    .cv-header h1 {
+        font-size: 18px !important;
+    }
+
+    /* ضبط مسافات الهوايات على الشاشات الصغيرة */
+    .hobbies-grid {
+        justify-content: space-around !important;
+    }
+}
     </style>
 </head>
 <body id="pageBody">
