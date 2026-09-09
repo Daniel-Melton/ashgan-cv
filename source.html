@@ -30,7 +30,6 @@
             color: var(--text-main);
             line-height: 1.6;
             padding: 20px 15px 40px 15px;
-            overflow-x: hidden;
         }
 
         /* تنسيق زرار الـ Switch */
@@ -358,76 +357,11 @@
             border: 1px solid var(--border-color);
         }
 
-        /* تعديل أقسام اللغات عشان تعمل تداخل (Overlap / Sliding Door) */
-        .lang-section {
-            display: none;
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            opacity: 0;
-            transform: translateX(100%);
-            transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
-            background: var(--card-bg);
-            z-index: 1;
-        }
-
-        .lang-section.active {
-            display: block;
-            position: relative; /* القسم النشط هو اللي بيدي الطول الحقيقي للصفحة */
-            opacity: 1;
-            transform: translateX(0);
-            z-index: 2;
-        }
-
-        .lang-section.sliding-out {
-            display: block;
-            position: absolute;
-            top: 0;
-            left: 0;
-            opacity: 1;
-            transform: translateX(-100%);
-            z-index: 3;
-        }
-
-        @keyframes slideIn {
-            0% {
-                opacity: 0;
-                transform: translateX(40px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
+        .lang-section { display: none; }
+        .lang-section.active { display: contents; }
 
         body.arabic-mode {
             font-family: 'Cairo', sans-serif;
-        }
-
-        /* التجاوب مع شاشات الموبايل (Responsive Grid) */
-        @media (max-width: 768px) {
-            .cv-header {
-                flex-direction: column-reverse;
-                gap: 20px;
-                text-align: center;
-                padding: 25px 20px;
-            }
-
-            .header-left {
-                align-items: center;
-                width: 100%;
-            }
-
-            .cv-body {
-                grid-template-columns: 1fr;
-                padding: 20px;
-                gap: 20px;
-            }
-
-            .hobbies-grid {
-                justify-content: space-around;
-            }
         }
 
         @media print {
@@ -740,69 +674,31 @@
 
     </div>
 
-    <!-- كود الجافاسكريبت للتحويل وتغيير الاتجاهات مع الـ Slide -->
+    <!-- كود الجافاسكريبت للتحويل وتغيير الاتجاهات -->
     <script>
         function toggleLanguage() {
-        const body = document.getElementById('pageBody');
-        const htmlRoot = document.getElementById('htmlRoot');
-        const contentEn = document.getElementById('contentEn');
-        const contentAr = document.getElementById('contentAr');
-        const langText = document.getElementById('langText');
+            const body = document.getElementById('pageBody');
+            const htmlRoot = document.getElementById('htmlRoot');
+            const contentEn = document.getElementById('contentEn');
+            const contentAr = document.getElementById('contentAr');
+            const langText = document.getElementById('langText');
 
-        // منع الضغط المتكرر أثناء مدة الحركة (0.9 ثانية)
-        if (window.isTranslating) return;
-        window.isTranslating = true;
-
-        if (body.classList.contains('arabic-mode')) {
-            // الانتقال من العربي للإنشليزي (الباب الجرار)
-            contentAr.classList.remove('active');
-            contentAr.classList.add('sliding-out');
-            
-            contentEn.style.transform = 'translateX(-100%)';
-            contentEn.classList.add('active');
-            
-            // تفعيل حركة الدخول والخروج معاً بـ 0.9 ثانية
-            setTimeout(() => {
-                contentEn.style.transform = 'translateX(0)';
-            }, 20);
-
-            body.classList.remove('arabic-mode');
-            htmlRoot.setAttribute('dir', 'ltr');
-            htmlRoot.setAttribute('lang', 'en');
-            langText.textContent = 'العربية';
-
-            setTimeout(() => {
-                contentAr.classList.remove('sliding-out');
-                contentAr.style.transform = '';
-                contentEn.style.transform = '';
-                window.isTranslating = false;
-            }, 900);
-
-        } else {
-            // الانتقال من الإنجليزي للعربي (الباب الجرار)
-            contentEn.classList.remove('active');
-            contentEn.classList.add('sliding-out');
-            
-            contentAr.style.transform = 'translateX(100%)';
-            contentAr.classList.add('active');
-            
-            setTimeout(() => {
-                contentAr.style.transform = 'translateX(0)';
-            }, 20);
-
-            body.classList.add('arabic-mode');
-            htmlRoot.setAttribute('dir', 'rtl');
-            htmlRoot.setAttribute('lang', 'ar');
-            langText.textContent = 'English';
-
-            setTimeout(() => {
-                contentEn.classList.remove('sliding-out');
-                contentEn.style.transform = '';
-                contentAr.style.transform = '';
-                window.isTranslating = false;
-            }, 900);
+            if (body.classList.contains('arabic-mode')) {
+                body.classList.remove('arabic-mode');
+                htmlRoot.setAttribute('dir', 'ltr');
+                htmlRoot.setAttribute('lang', 'en');
+                contentAr.classList.remove('active');
+                contentEn.classList.add('active');
+                langText.textContent = 'العربية';
+            } else {
+                body.classList.add('arabic-mode');
+                htmlRoot.setAttribute('dir', 'rtl');
+                htmlRoot.setAttribute('lang', 'ar');
+                contentEn.classList.remove('active');
+                contentAr.classList.add('active');
+                langText.textContent = 'English';
+            }
         }
-    }
     </script>
 
 </body>
