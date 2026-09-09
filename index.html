@@ -44,22 +44,22 @@
             transition: transform 0.4s ease, opacity 0.4s ease;
         }
 
-        /* أنيميشن الانتقال بين اللغات (Slide Effects) */
+        /* أنيميشن الانتقال بين اللغات (Slide Effects أبطأ وأوضح) */
         .slide-left {
-            animation: slideLeftAnim 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: slideLeftAnim 0.9s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         .slide-right {
-            animation: slideRightAnim 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: slideRightAnim 0.9s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         @keyframes slideLeftAnim {
-            0% { transform: translateX(40px); opacity: 0; }
+            0% { transform: translateX(900px); opacity: 0; }
             100% { transform: translateX(0); opacity: 1; }
         }
 
         @keyframes slideRightAnim {
-            0% { transform: translateX(-40px); opacity: 0; }
+            0% { transform: translateX(-90px); opacity: 0; }
             100% { transform: translateX(0); opacity: 1; }
         }
 
